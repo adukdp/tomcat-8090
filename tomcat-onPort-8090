@@ -1,0 +1,35 @@
+Install Tomcat on EC2-Instance on port 8090
+lauch rhel8 ec2-instance named tomcat-8090 sec group 22,8090
+
+sudo su -
+yum install vim wget curl -y;
+yum install java -y;
+cd opt;   
+##goto tomcat official page dwnload tomcat 8
+wget https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.59/bin/apache-tomcat-8.5.59.tar.gz
+tar -xvzf apache-tomcat-8.5.59.tar.gz
+cd apache-tomcat-8.5.59
+cd bin
+chmod +x startup.sh
+chmod +x shutdown.sh
+
+to create softlink chk first current path by
+echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+##path is /user/local/bin
+then to create soft link
+ln -s /opt/apache-tomcat-8.5.59/bin/startup.sh /usr/local/bin/tomcatup;
+ln -s /opt/apache-tomcat-8.5.59/bin/shutdown.sh /usr/local/bin/tomcatdown
+
+ps -ef | grep tomcat
+if we start it run on default port 8080 but we want it to run on port 8090 then
+cd ..
+ls
+conf
+cd conf
+vim server.xml
+replace 8080 with 8090 wherever it is search by:/8080
+
+tomcatdown
+tomcatup
+& then check on browser by pub-ip:8090 you see tomcat page
