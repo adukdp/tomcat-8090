@@ -1,0 +1,30 @@
+sudo su -
+python --version
+yum install python3 -y
+
+python --version //if not show cause its python 3
+
+python3 --version
+alternatives --set python /usr/bin/python3
+
+python --version  //now it will show python version
+
+yum -y install python3-pip
+
+useradd ansadmin
+passwd ansadmin
+
+yum install wget vim curl
+visudo
+below ec2-user
+ansadmin ALL=(ALL) NOPASSWD: ALL
+
+vi /etc/ssh/sshd_config
+check #PasswordAuthentication no
+uncheck PasswordAuthentication yes
+service sshd reload
+
+su - ansadmin
+pip3 install ansible --user
+
+ansible --version
